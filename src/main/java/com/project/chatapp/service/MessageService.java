@@ -31,4 +31,18 @@ public class MessageService {
         return messageRepo.findAllUserChats(authenticatedUserEmail);
     }
 
+    public Message findMessage(Long id){
+        return messageRepo.findById(id).get();
+    }
+
+    public Message updateMessage(Long id, String newText){
+        Message message = messageRepo.findById(id).get();
+        message.setMessage(newText);
+        return messageRepo.save(message);
+    }
+
+    public void deleteMessage(Long id){
+        messageRepo.deleteById(id);
+    }
+
 }

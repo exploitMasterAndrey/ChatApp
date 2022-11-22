@@ -27,6 +27,4 @@ public class Message {
     private String message;
 
     private LocalDateTime time;
-
-    /*private Status status;*/
 }

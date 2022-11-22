@@ -13,6 +13,7 @@ async function selectUser(id){
     connect()
 }
 
+
 function renderChat({username}){
     const chat = document.getElementById('chat')
     const chat_header = document.getElementById('chat_header')
@@ -38,12 +39,14 @@ function renderChat({username}){
         <div id="createMessage" class="chat-message clearfix">
                     <div class="input-group mb-0">
                         <div class="input-group-prepend">
-                            <span id="send_message_button" onclick="sendMessage()" class="input-group-text"><i class="fa fa-send"></i></span>
+                            <span id="send_message_button"  class="input-group-text"><i class="fa fa-send"></i></span>
                         </div>
                         <input id="message_input" type="text" class="form-control" placeholder="Enter text here...">                                    
                     </div>
                 </div> 
     `)
+
+    document.querySelector('#send_message_button').addEventListener('click', sendMessage)
 
     loadHistory()
 }

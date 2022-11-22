@@ -6,9 +6,7 @@ import com.project.chatapp.service.MessageService;
 import com.project.chatapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,5 +44,21 @@ public class DataRestController {
     @GetMapping("/getLoggedUserCredentials")
     public User getLoggedUserCredentials(@AuthenticationPrincipal User user){
         return userService.findUser(user.getId());
+    }
+
+    @GetMapping("/getMessage")
+    public Message getMessage(@RequestHeader("id") Long id){
+        return messageService.findMessage(id);
+    }
+
+    @GetMapping("/updateMessage")
+    public Message updateMessage(@RequestHeader("id") Long id, @RequestHeader("text") String text){
+        Message message = messageService.updateMessage(id, text);
+        return message;
+    }
+
+    @GetMapping("/deleteMessage")
+    public void deleteMessage(@RequestHeader("id") Long id){
+        messageService.deleteMessage(id);
     }
 }

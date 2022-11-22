@@ -1,5 +1,6 @@
 async function loadExistedChats(){
     await initLoggedUser()
+    // connect()
 
     const res = await fetch('http://localhost:8080/getAllUserChats')
     const contacts = await res.json()
@@ -22,8 +23,10 @@ function ChatsToHTML({id, username}){
     const contacts = document.getElementById('contacts')
     if (id === userFrom.id) return
 
+    // onclick="selectUser(${id})"
+
     contacts.insertAdjacentHTML('beforeend', `
-    <li class="clearfix" id="${id}" onclick="selectUser(${id})">
+    <li class="clearfix" id="${id}"> 
         <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
         <div class="about">
             <div class="name">${username}</div>
@@ -31,6 +34,9 @@ function ChatsToHTML({id, username}){
         </div>
     </li>  
     `)
+
+    let x = contacts.querySelector(`#${CSS.escape(id)}`)
+    x.addEventListener('click', function (){ selectUser(id) })
 }
 
 async function loadLoggedUserCredentials(){

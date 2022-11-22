@@ -1,17 +1,17 @@
 let stompClient
 
 
-const connect = (event) => {
+function connect() {
     if (userFrom){
-        const socket = new SockJS("/chat-example")
+        console.log(userFrom)
+        var socket = new SockJS('/chat-example')
         stompClient = Stomp.over(socket)
 
         stompClient.connect({}, onConnected, onError)
     }
-    // event.preventDefault()
 }
 
-const sendMessage = (event) => {
+function sendMessage(event) {
     const messageInput = document.getElementById('message_input')
     const messageContent = messageInput.value.trim()
 
@@ -28,26 +28,22 @@ const sendMessage = (event) => {
             stompClient.send("/app/chat.send/" + userTo.id + "/" + userFrom.id, {}, JSON.stringify(chatMessage))
 
         messageInput.value = ''
-        renderMessage(chatMessage)
     }
     event.preventDefault()
 }
 
-const onMessageReceived = (payload) => {
+function onMessageReceived (payload) {
     const message = JSON.parse(payload.body)
     renderMessage(message)
 }
 
-const onConnected = () => {
+function onConnected() {
     if (userFrom.id < userTo.id)
-        stompClient.subscribe('/topic' + userFrom.id + '/' + userTo.id, onMessageReceived)
+        stompClient.subscribe('/topic/' + userFrom.id + '/' + userTo.id, onMessageReceived)
     else
-        stompClient.subscribe('/topic' + userTo.id + '/' + userFrom.id, onMessageReceived)
+        stompClient.subscribe('/topic/' + userTo.id + '/' + userFrom.id, onMessageReceived)
 }
 
 const onError = () => {
     console.log("ERROR DURING CONNECTION...")
 }
-
-// const sendMessageButton = document.getElementById('send_message_button')
-// sendMessageButton.addEventListener('onclick', sendMessage, true)
