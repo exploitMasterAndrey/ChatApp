@@ -51,14 +51,14 @@ public class DataRestController {
         return messageService.findMessage(id);
     }
 
-    @GetMapping("/updateMessage")
-    public Message updateMessage(@RequestHeader("id") Long id, @RequestHeader("text") String text){
+    @PutMapping("/updateMessage")
+    public Message updateMessage(@RequestParam("id") Long id, @RequestParam("text") String text){
         Message message = messageService.updateMessage(id, text);
         return message;
     }
 
-    @GetMapping("/deleteMessage")
-    public void deleteMessage(@RequestHeader("id") Long id){
+    @DeleteMapping("/deleteMessage")
+    public void deleteMessage(@RequestBody Long id){
         messageService.deleteMessage(id);
     }
 }

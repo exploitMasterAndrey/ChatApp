@@ -53,11 +53,11 @@ let chosenMessageId = -1;
 
 async function deleteMessage(id) {
     const res = await fetch('http://localhost:8080/deleteMessage', {
-        method: 'GET',
+        method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json',
-            'id': id
+            'Content-Type': 'application/json'
         },
+        body: id
     })
 
     loadHistory()
@@ -85,33 +85,16 @@ async function confirmUpdate() {
     const input = document.getElementById('updateMessageInput')
     const modifiedText = input.value
 
-    // const res = await fetch('http://localhost:8080/updateMessage', {
-    //     method: 'PUT',
-    //     headers:{
-    //         'Content-Type': 'application/json',
-    //         'id': chosenMessageId,
-    //         'text': modifiedText
-    //     },
-    // })
-
-    var updateQuery = {
-        "url": "http://localhost:8080/updateMessage" ,
-        "method": "GET",
-        "timeout": 0,
-        "headers": {
-            "Content-Type": "application/json",
-            "id": chosenMessageId,
-            "text": modifiedText
+    const res = await fetch('http://localhost:8080/updateMessage?id=' + chosenMessageId + "&text=" + modifiedText, {
+        method: 'PUT',
+        headers:{
+            'Content-Type': 'application/json'
         },
-    };
-    console.log()
+    })
 
-    $.ajax(updateQuery).done(function (response) {
-        console.log(response)
-        chosenMessageId = -1
-        closeModal()
-        loadHistory()
-    });
+    chosenMessageId = -1
+    closeModal()
+    loadHistory()
 }
 
 function closeModal() {
