@@ -38,12 +38,6 @@ public class AuthController {
 
     @PostMapping("/registration")
     public String registerNewUser(@Valid @ModelAttribute("user") User user){
-        /*User newUser1 = User.builder()
-                .userName(user.getUsername())
-                .role(Role.USER)
-                .password(passwordEncoder.encode(user.getPassword()))
-                .build();*/
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
         userService.save(user);

@@ -1,7 +1,5 @@
 async function loadExistedChats(){
     await initLoggedUser()
-    // connect()
-
     const res = await fetch('http://localhost:8080/getAllUserChats')
     const contacts = await res.json()
     contacts.forEach(contact => ChatsToHTML(contact))
@@ -22,8 +20,6 @@ window.addEventListener('DOMContentLoaded', loadExistedChats)
 function ChatsToHTML({id, username}){
     const contacts = document.getElementById('contacts')
     if (id === userFrom.id) return
-
-    // onclick="selectUser(${id})"
 
     contacts.insertAdjacentHTML('beforeend', `
     <li class="clearfix" id="${id}"> 

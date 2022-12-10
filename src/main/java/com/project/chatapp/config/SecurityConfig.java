@@ -30,15 +30,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/js/**", "/css/**").permitAll()
-                .antMatchers("/auth/registration", "/deleteMessage").permitAll()
+                .antMatchers("/auth/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/auth/login").permitAll()
-                .defaultSuccessUrl("/chat").permitAll()
+                .defaultSuccessUrl("/chat")
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "GET"))
                 .logoutSuccessUrl("/auth/login");
     }
 
